@@ -12,14 +12,15 @@ body {
 /* ---------- Tabs (shared by both pages) ---------- */
 .tabs {
   display: flex;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.25rem;
   justify-content: center;
   border-bottom: 1px solid #ddd;
   background: #fff;
 }
 
 .tab {
-  padding: 0.75rem 1.25rem;
+  padding: 0.7rem 0.9rem;
   text-decoration: none;
   color: #666;
   font-weight: 600;
@@ -117,8 +118,10 @@ body.vote-page {
   border-top: 1px solid #e0e0e0;
 }
 
-/* ---------- Leaderboard page: centered, readable column ---------- */
-body.stats-page {
+/* ---------- Centered, readable column (leaderboard, quiz, about) ---------- */
+body.stats-page,
+body.quiz-page,
+body.about-page {
   max-width: 700px;
   margin: 0 auto;
   padding: 0 1rem 2rem;
@@ -135,4 +138,102 @@ body.stats-page {
 #leaderboard li {
   padding: 0.3rem 0;
   font-size: 1.05rem;
+}
+
+/* Hide elements with the [hidden] attribute, even flex/grid containers */
+[hidden] {
+  display: none !important;
+}
+
+/* ---------- Quiz page ---------- */
+.quiz {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.quiz-question {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.quiz-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.quiz-option {
+  flex: 1;
+  min-width: 140px;
+  min-height: 90px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+  padding: 1rem;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.quiz-option:hover:not(:disabled) {
+  border-color: #4a90d9;
+}
+
+.quiz-option:disabled {
+  cursor: default;
+}
+
+.quiz-option.correct {
+  border-color: #3aa657;
+  background: #eaf7ee;
+  color: #1e7a3a;
+}
+
+.quiz-option.wrong {
+  border-color: #d9534f;
+  background: #fbeaea;
+  color: #a83a37;
+}
+
+.quiz-result {
+  min-height: 1.5em;
+  font-weight: 600;
+  margin: 1.2rem 0;
+}
+
+.quiz-result.good {
+  color: #2e8b57;
+}
+
+.quiz-result.bad {
+  color: #c0392b;
+}
+
+.quiz-next {
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: #4a90d9;
+  color: #fff;
+  cursor: pointer;
+}
+
+.quiz-score {
+  margin-top: 1.5rem;
+  color: #666;
+}
+
+/* ---------- About page ---------- */
+.about {
+  line-height: 1.65;
+}
+
+.about p {
+  margin: 1rem 0;
 }

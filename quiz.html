@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Best Things — Quiz</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="quiz-page">
+  <nav class="tabs">
+    <a href="index.html" class="tab">Vote</a>
+    <a href="leaderboard.html" class="tab">Leaderboard</a>
+    <a href="quiz.html" class="tab active">Quiz</a>
+    <a href="about.html" class="tab">About</a>
+  </nav>
+
+  <main class="quiz">
+    <p class="quiz-question">Which does the crowd rank higher?</p>
+    <div class="quiz-options">
+      <button id="optionA" class="quiz-option"></button>
+      <button id="optionB" class="quiz-option"></button>
+    </div>
+    <p id="quiz-result" class="quiz-result"></p>
+    <button id="quiz-next" class="quiz-next" hidden>Next &rarr;</button>
+    <p class="quiz-score">Streak: <span id="streak">0</span> &middot; Best: <span id="best">0</span></p>
+    <p id="quiz-empty" class="empty" hidden></p>
+  </main>
+
+  <!-- Supabase library (CDN), then our connection, then page logic. -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
