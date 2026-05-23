@@ -4,6 +4,12 @@
 const leftButton = document.getElementById("left");
 const rightButton = document.getElementById("right");
 
+// Ignore clicks that come faster than this many milliseconds apart.
+// Stops autoclickers / frantic mashing while feeling instant to a human.
+// Raise it to throttle harder, lower it to allow faster voting.
+const VOTE_COOLDOWN_MS = 300;
+let lastVoteAt = 0;
+
 // Filled in once we've loaded the list from the database.
 let things = [];
 let currentPair = [];
@@ -36,9 +42,18 @@ async function vote(winner, loser) {
   }
 }
 
+// Gate every click through the cooldown: clicks that arrive too soon after the
+// last accepted vote are ignored, so an autoclicker can't rack up votes.
+function handleVote(winner, loser) {
+  const now = Date.now();
+  if (now - lastVoteAt < VOTE_COOLDOWN_MS) return;
+  lastVoteAt = now;
+  vote(winner, loser);
+}
+
 // When a button is clicked, the thing on it wins over the other one.
-leftButton.addEventListener("click", () => vote(currentPair[0], currentPair[1]));
-rightButton.addEventListener("click", () => vote(currentPair[1], currentPair[0]));
+leftButton.addEventListener("click", () => handleVote(currentPair[0], currentPair[1]));
+rightButton.addEventListener("click", () => handleVote(currentPair[1], currentPair[0]));
 
 // Load the list of things from the database, then start the first matchup.
 async function start() {
