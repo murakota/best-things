@@ -1,0 +1,60 @@
+/* A simple, clean starting point. It's yours — tweak anything. */
+
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #222;
+  background: #fafafa;
+}
+
+header h1 {
+  margin-bottom: 0.25rem;
+}
+
+header p {
+  color: #666;
+  margin-top: 0;
+}
+
+.matchup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2.5rem 0;
+}
+
+.thing {
+  flex: 1;
+  min-height: 140px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  padding: 1rem;
+  transition: transform 0.1s, border-color 0.1s;
+}
+
+.thing:hover {
+  border-color: #4a90d9;
+  transform: translateY(-3px);
+}
+
+.vs {
+  font-weight: 700;
+  color: #999;
+}
+
+.results {
+  text-align: left;
+  margin-top: 2rem;
+}
+
+#leaderboard li {
+  padding: 0.25rem 0;
+}
