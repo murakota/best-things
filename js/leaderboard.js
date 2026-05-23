@@ -1,33 +1,31 @@
-// Leaderboard page logic. Reads the saved scores and lists them by win rate.
+// Leaderboard page logic. Reads the aggregated rankings from the database
+// (the "leaderboard" view does the win/loss counting for us in SQL).
 const leaderboardList = document.getElementById("leaderboard");
 const emptyMessage = document.getElementById("empty");
 
-function showLeaderboard() {
-  const scores = loadScores();
-  const names = Object.keys(scores);
+async function showLeaderboard() {
+  const { data, error } = await db
+    .from("leaderboard")
+    .select("*")
+    .order("win_percent", { ascending: false });
 
-  // Nothing voted on yet: show the hint, leave the list empty.
-  if (names.length === 0) {
+  if (error) {
+    emptyMessage.textContent = "Couldn't load the leaderboard — try refreshing.";
+    emptyMessage.style.display = "block";
+    console.error("Leaderboard error:", error.message);
+    return;
+  }
+
+  if (!data || data.length === 0) {
     emptyMessage.style.display = "block";
     return;
   }
   emptyMessage.style.display = "none";
 
-  // Turn the scores object into a sortable array.
-  const ranked = names.map(function (name) {
-    const { wins, battles } = scores[name];
-    return { name, wins, battles, winRate: wins / battles };
-  });
-
-  // Highest win rate first.
-  ranked.sort((a, b) => b.winRate - a.winRate);
-
-  // Build the full ranked list.
   leaderboardList.innerHTML = "";
-  ranked.forEach(function (item) {
+  data.forEach(function (row) {
     const li = document.createElement("li");
-    const percent = Math.round(item.winRate * 100);
-    li.textContent = `${item.name} — ${percent}% (${item.wins}/${item.battles})`;
+    li.textContent = `${row.name} — ${row.win_percent}% (${row.wins}/${row.battles})`;
     leaderboardList.appendChild(li);
   });
 }

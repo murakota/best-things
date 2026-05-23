@@ -1,5 +1,5 @@
-// Voting page logic. Picks two things, shows them, records the winner.
-// (The leaderboard lives on its own page — see leaderboard.js.)
+// Voting page logic. Picks two things, shows them, saves the winner to the
+// shared database. (The leaderboard lives on its own page — see leaderboard.js.)
 const leftButton = document.getElementById("left");
 const rightButton = document.getElementById("right");
 
@@ -23,19 +23,15 @@ function showNewMatchup() {
   rightButton.textContent = currentPair[1];
 }
 
-// Record a win for the chosen thing (both things get a "battle").
-function vote(winner, loser) {
-  const scores = loadScores();
-
-  if (!scores[winner]) scores[winner] = { wins: 0, battles: 0 };
-  if (!scores[loser]) scores[loser] = { wins: 0, battles: 0 };
-
-  scores[winner].wins += 1;
-  scores[winner].battles += 1;
-  scores[loser].battles += 1;
-
-  saveScores(scores);
+// Save the winner, then move on. We show the next matchup immediately so it
+// feels instant, and write to the database in the background.
+async function vote(winner, loser) {
   showNewMatchup();
+
+  const { error } = await db.from("votes").insert({ winner: winner, loser: loser });
+  if (error) {
+    console.error("Could not save vote:", error.message);
+  }
 }
 
 // When a button is clicked, the thing on it wins over the other one.

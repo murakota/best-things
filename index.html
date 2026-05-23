@@ -20,9 +20,10 @@
 
   <div class="ad-slot">Ad space</div>
 
-  <!-- Data, then shared storage helpers, then the page's own logic. -->
+  <!-- Supabase library (CDN), then our connection, then page data + logic. -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/things.js"></script>
-  <script src="js/storage.js"></script>
+  <script src="js/supabase.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
