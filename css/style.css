@@ -1,60 +1,138 @@
-/* A simple, clean starting point. It's yours — tweak anything. */
+* {
+  box-sizing: border-box;
+}
 
 body {
+  margin: 0;
   font-family: system-ui, sans-serif;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  text-align: center;
   color: #222;
   background: #fafafa;
 }
 
-header h1 {
-  margin-bottom: 0.25rem;
+/* ---------- Tabs (shared by both pages) ---------- */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
 }
 
-header p {
+.tab {
+  padding: 0.75rem 1.25rem;
+  text-decoration: none;
   color: #666;
-  margin-top: 0;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+}
+
+.tab.active {
+  color: #4a90d9;
+  border-bottom-color: #4a90d9;
+}
+
+/* ---------- Vote page: full-screen, split top/bottom ---------- */
+body.vote-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh; /* "dynamic" viewport height — accounts for mobile browser bars */
+  overflow: hidden;
 }
 
 .matchup {
+  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin: 2.5rem 0;
+  flex-direction: column;
+  position: relative;
+  min-height: 0;
 }
 
 .thing {
   flex: 1;
-  min-height: 140px;
-  font-size: 1.25rem;
-  font-weight: 600;
-  border: 2px solid #ddd;
-  border-radius: 12px;
-  background: #fff;
+  width: 100%;
+  border: none;
   cursor: pointer;
+  font-size: clamp(1.5rem, 6vw, 3rem);
+  font-weight: 700;
+  color: #222;
   padding: 1rem;
-  transition: transform 0.1s, border-color 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: background-color 0.15s, transform 0.05s;
 }
 
-.thing:hover {
-  border-color: #4a90d9;
-  transform: translateY(-3px);
+.thing-top {
+  background: #eef4fb;
 }
 
+.thing-bottom {
+  background: #fbf3ec;
+}
+
+.thing-top:hover {
+  background: #dde9f8;
+}
+
+.thing-bottom:hover {
+  background: #f8e7d6;
+}
+
+.thing:active {
+  transform: scale(0.98);
+}
+
+/* The little "vs" badge floating over the dividing line */
 .vs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 700;
   color: #999;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  z-index: 1;
+}
+
+/* Reserved, non-invasive ad space pinned at the very bottom */
+.ad-slot {
+  height: 60px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #bbb;
+  background: #f0f0f0;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* ---------- Leaderboard page: centered, readable column ---------- */
+body.stats-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
 }
 
 .results {
-  text-align: left;
-  margin-top: 2rem;
+  margin-top: 1rem;
+}
+
+.empty {
+  color: #888;
 }
 
 #leaderboard li {
-  padding: 0.25rem 0;
+  padding: 0.3rem 0;
+  font-size: 1.05rem;
 }

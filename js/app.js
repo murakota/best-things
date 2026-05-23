@@ -1,23 +1,10 @@
-// Grab the parts of the page we need to read or update.
+// Voting page logic. Picks two things, shows them, records the winner.
+// (The leaderboard lives on its own page — see leaderboard.js.)
 const leftButton = document.getElementById("left");
 const rightButton = document.getElementById("right");
-const leaderboardList = document.getElementById("leaderboard");
-
-// The "key" we store our scores under in the browser's localStorage.
-const STORAGE_KEY = "bestThingsScores";
 
 // Whichever two things are on screen right now.
 let currentPair = [];
-
-// localStorage only stores text, so we convert to/from JSON.
-function loadScores() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  return saved ? JSON.parse(saved) : {};
-}
-
-function saveScores(scores) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(scores));
-}
 
 // Pick two *different* things at random.
 function pickTwoThings() {
@@ -48,28 +35,7 @@ function vote(winner, loser) {
   scores[loser].battles += 1;
 
   saveScores(scores);
-  showLeaderboard();
   showNewMatchup();
-}
-
-// Sort the things by win rate and list the top 10.
-function showLeaderboard() {
-  const scores = loadScores();
-
-  const ranked = Object.keys(scores).map(function (name) {
-    const { wins, battles } = scores[name];
-    return { name, wins, battles, winRate: wins / battles };
-  });
-
-  ranked.sort((a, b) => b.winRate - a.winRate);
-
-  leaderboardList.innerHTML = "";
-  ranked.slice(0, 10).forEach(function (item) {
-    const li = document.createElement("li");
-    const percent = Math.round(item.winRate * 100);
-    li.textContent = `${item.name} — ${percent}% (${item.wins}/${item.battles})`;
-    leaderboardList.appendChild(li);
-  });
 }
 
 // When a button is clicked, the thing on it wins over the other one.
@@ -78,4 +44,3 @@ rightButton.addEventListener("click", () => vote(currentPair[1], currentPair[0])
 
 // Kick things off.
 showNewMatchup();
-showLeaderboard();

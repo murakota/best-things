@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Best Things — Leaderboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="stats-page">
+  <nav class="tabs">
+    <a href="index.html" class="tab">Vote</a>
+    <a href="leaderboard.html" class="tab active">Leaderboard</a>
+  </nav>
+
+  <main class="results">
+    <h2>Leaderboard</h2>
+    <p id="empty" class="empty">No votes yet — head to the Vote tab first!</p>
+    <ol id="leaderboard"></ol>
+  </main>
+
+  <!-- Shared storage helpers, then this page's own logic. -->
+  <script src="js/storage.js"></script>
+  <script src="js/leaderboard.js"></script>
+</body>
+</html>

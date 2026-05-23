@@ -6,25 +6,23 @@
   <title>Best Things</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
-  <header>
-    <h1>Best Things</h1>
-    <p>Which do you like better? Click one.</p>
-  </header>
+<body class="vote-page">
+  <nav class="tabs">
+    <a href="index.html" class="tab active">Vote</a>
+    <a href="leaderboard.html" class="tab">Leaderboard</a>
+  </nav>
 
   <main class="matchup">
-    <button id="left" class="thing"></button>
+    <button id="left" class="thing thing-top"></button>
     <span class="vs">vs</span>
-    <button id="right" class="thing"></button>
+    <button id="right" class="thing thing-bottom"></button>
   </main>
 
-  <section class="results">
-    <h2>Leaderboard</h2>
-    <ol id="leaderboard"></ol>
-  </section>
+  <div class="ad-slot">Ad space</div>
 
-  <!-- Load the data first, then the logic that uses it. Order matters here. -->
+  <!-- Data, then shared storage helpers, then the page's own logic. -->
   <script src="js/things.js"></script>
+  <script src="js/storage.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
